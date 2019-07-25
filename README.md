@@ -1,4 +1,6 @@
-# Etanolox
+# E-Parcel Manager
+
+This project effects Angular, Cordova and .NET Core to implement a parcel delivery and tracking system.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.2.
 
