@@ -1,0 +1,15 @@
+<mat-form-field class="full-width">
+  <input #filterInput type="text" matInput [placeholder]="placeholder" [(ngModel)]="value" [matAutocomplete]="auto">
+  <button mat-button matSuffix *ngIf="value" mat-icon-button aria-label="Clear" (click)="clear()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)" [displayWith]="displayFn">
+    <mat-option *ngFor="let item of itemList" [value]="item">
+      <app-img *ngIf="hasImage" mat-list-avatar [src]="item.id" width="40" height="40" circle="true" memberPicture="true"></app-img>
+      <span>{{ item.value }}</span>
+    </mat-option>
+  </mat-autocomplete>
+
+</mat-form-field>

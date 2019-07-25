@@ -1,0 +1,57 @@
+<div class="login-container">
+
+  <mat-card class="login-card">
+
+    <mat-toolbar color="primary">
+      <span>Track Your Parcel</span>
+      <div class="spacer"></div>
+      <a class="toolbar-button" mat-raised-button type="button" (click)="beginScan2()">
+        <mat-icon svgIcon="qrcode"></mat-icon>
+      </a>
+    </mat-toolbar>
+
+    <mat-card-content class="login-content">
+      <form class="login-form" autocomplete="false" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-input">
+          <input matInput type="text" placeholder="Mobile" [formControl]="mobileFC" [errorStateMatcher]="matcher">
+          <mat-icon matSuffix color="accent">call</mat-icon>
+          <mat-error *ngIf="mobileFC.hasError('pattern') && !mobileFC.hasError('required')">
+            Please enter a valid mobile number (0XXXXXXXXX)
+          </mat-error>
+          <mat-error *ngIf="mobileFC.hasError('required')">
+            Mobile number is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-input">
+          <input matInput type="password" placeholder="Reference" [formControl]="codeFC" [errorStateMatcher]="matcher">
+          <mat-icon matSuffix color="accent">lock</mat-icon>
+          <mat-error *ngIf="codeFC.hasError('minlength')">
+            Should not be less than 8 characters
+          </mat-error>
+          <mat-error *ngIf="codeFC.hasError('required')">
+            Reference code is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="buttons">
+          <button *ngIf="!loading" mat-raised-button type="submit" color="primary" [disabled]="!mobileFC.valid || !codeFC.valid">
+            <mat-icon>check_circle</mat-icon>
+            LOGIN
+          </button>
+          <mat-spinner *ngIf="loading"></mat-spinner>
+        </div>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+
+  <!-- <mat-card class="staff-card">
+        <mat-card-content>
+            <a routerLink="/login/staff">Login in as staff</a>
+        </mat-card-content>
+    </mat-card> -->
+
+</div>

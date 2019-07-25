@@ -1,0 +1,45 @@
+<div class="mat-headline">{{getPersonType()}}</div>
+<mat-card class="card">
+  <div class="card-heading">
+    <button mat-icon-button>
+      <mat-icon matSuffix>search</mat-icon>
+    </button>
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filterInput placeholder="Filter {{getPersonType()}}">
+    </mat-form-field>
+
+    <!-- <button class="main-actions pull-right" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Refresh</button>
+        </mat-menu> -->
+
+    <button class="main-actions pull-right" mat-icon-button (click)="getPeople()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <div class="mat-elevation-z3s">
+    <mat-list>
+      <app-list #listComponent [ResultAsync]="personsAsync" (pageChange)="onPage($event)">
+        <app-list-item *appItem="let person; let i=index" (dblclick)="onFarmerSelect(person.id)">
+          <mat-list-item class="cursor-pointer">
+            <!-- <app-initials-avatar mat-list-avatar [initials]="getInitials(person)"></app-initials-avatar> -->
+            <app-img mat-list-avatar [src]="person.id" width="40" height="40" circle="true" memberPicture="true"></app-img>
+
+            <label mat-line>{{person.surname}} {{person.othername}}</label>
+            <label mat-line class="otherInfoSize">
+              <b>{{person.gender}}</b> | {{person.mobileOne}}
+            </label>
+
+            <app-responsive-buttons [buttons]="actionButtons" [buttonsData]="person.id"></app-responsive-buttons>
+
+          </mat-list-item>
+
+          <mat-divider></mat-divider>
+        </app-list-item>
+      </app-list>
+    </mat-list>
+  </div>
+</mat-card>
+
+<app-fab (click)="addPerson()">add</app-fab>

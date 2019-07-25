@@ -1,0 +1,14 @@
+<div class="pic-area">
+  <a href="javascript:void()">
+    <app-img [src]="image" [memberPicture]="member" class="picture img-responsive" [circle]="circle"></app-img>
+    <!-- <img class="img-responsive" [src]="image" alt="picture"> -->
+  </a>
+
+  <label class="picture-edit" matTooltip="Change picture">
+    <!-- <i class="icon-camera"></i> -->
+    <mat-icon>photo_camera</mat-icon>
+    <input type="hidden" class="photo-cropped">
+    <input type="file" name="photo" (change)="onFileChanged($event)">
+  </label>
+
+</div>

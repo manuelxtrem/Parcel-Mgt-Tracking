@@ -1,0 +1,52 @@
+<div class="table-responsive">
+    <table class="table" [class.table-hover]="!loading">
+        <thead>
+            <tr>
+                <th *ngFor="let col of columns">
+                    <mat-checkbox *ngIf="col.checkbox" (change)="selectAllItems($event)"></mat-checkbox>
+                    <span *ngIf="!col.checkbox">{{col.title}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <mat-spinner *ngIf="loading" class="spinner"></mat-spinner>
+            <!-- <ng-content select="table-body"></ng-content> -->
+            <tr *ngIf="!results || !results.total">
+                <!-- <td [colspan]="columns.length" *ngIf="!loading"> TODO -->
+                <td *ngIf="!loading">
+                    Sorry, no {{nameOfItems}} found.
+                </td>
+                <td *ngIf="loading">
+                    Loading data...
+                </td>
+            </tr>
+
+            <tr (dblclick)="dblClick(data)" *ngFor="let data of results.data; let dataIndex = index">
+                <td *ngFor="let col of columns; let colIndex = index; let temp" [style.width]="col.width" [class.nowrap]="col.nowrap">
+                    <!-- CHEKBOX -->
+                    <mat-checkbox *ngIf="col.checkbox" [(ngModel)]="results.data[dataIndex].checked" (change)="onItemChecked($event, colIndex, dataIndex)"></mat-checkbox>
+
+                    <!-- NO IMAGE -->
+                    <div *ngIf="!col.image && !col.buttons && !col.checkbox" [innerHTML]="getTemplate(colIndex, dataIndex)"></div>
+
+                    <!-- IMAGE -->
+                    <app-img *ngIf="col.image && !col.buttons" [src]="getTemplate(colIndex, dataIndex)" [memberPicture]="col.image.memberPicture"
+                        alt="image" class="avatar-img" [circle]="col.image.circle"></app-img>
+
+                    <!-- BUTTONS -->
+                    <button mat-icon-button (click)="button.callback(getTemplate(colIndex, dataIndex))" *ngFor="let button of col.buttons" [matTooltip]="button.title"
+                        [style.color]="button.color">
+                            <mat-icon>{{button.icon}}</mat-icon>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<mat-paginator *ngIf="results.total > perPage" [pageIndex]="results.page - 1" [length]="results.total" [pageSize]="perPage"
+    (page)="onPageChange($event)" [pageSizeOptions]="pageSizes"></mat-paginator>
+
+<!-- <app-pagination class="pull-right" [totalItems]="results.total" [(currentPage)]="results.page" (onPage)="onPageChange()"></app-pagination> -->

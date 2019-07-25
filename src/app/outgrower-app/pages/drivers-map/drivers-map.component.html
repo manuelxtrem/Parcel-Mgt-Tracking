@@ -1,0 +1,65 @@
+<div class="mat-headline">Location of Drivers</div>
+
+<div class="col">
+
+  <div class="col-md-3">
+    <mat-card class="card">
+      <div class="card-heading">
+        <button mat-icon-button>
+          <mat-icon matSuffix>search</mat-icon>
+        </button>
+        <mat-form-field floatPlaceholder="never" style="width: 150px">
+          <input matInput #filterInput placeholder="Filter Drivers">
+        </mat-form-field>
+
+        <!-- <button class="main-actions pull-right" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Refresh</button>
+              </mat-menu> -->
+
+        <button class="main-actions pull-right" mat-icon-button (click)="getDriversOnTrack()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+
+      <div class="mat-elevation-z3s">
+        <mat-list>
+          <app-list #listComponent [ResultAsync]="driversAsync" (pageChange)="onPage($event)">
+            <app-list-item *appItem="let person; let i=index">
+              <mat-list-item class="cursor-pointer">
+                <!-- <app-img mat-list-avatar [src]="person.id" width="40" height="40" circle="true" memberPicture="true"></app-img> -->
+                <app-initials-avatar mat-list-avatar color="#db544c" [initials]="getInitials(i)"></app-initials-avatar>
+
+                <label mat-line>{{person.surname}} {{person.othername}}</label>
+                <label mat-line class="otherInfoSize">
+                  <b>{{person.gender}}</b> | {{person.mobileOne}}
+                </label>
+
+                <!-- <app-responsive-buttons [buttons]="actionButtons" [buttonsData]="i"></app-responsive-buttons> -->
+
+                <button mat-icon-button matTooltip="Show on Map" (click)="showDriver(i)">
+                  <mat-icon>location_on</mat-icon>
+                </button>
+
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+            </app-list-item>
+          </app-list>
+        </mat-list>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="col-md-9">
+    <mat-card class="card-map">
+      <mat-card-title class="title">Map</mat-card-title>
+      <app-loading-overlay [show]="loading">
+        <div class="map">
+          <app-map [editMode]="true" [latitude]="latitude" [longitude]="longitude" [markers]="markers"></app-map>
+        </div>
+      </app-loading-overlay>
+    </mat-card>
+  </div>
+
+</div>

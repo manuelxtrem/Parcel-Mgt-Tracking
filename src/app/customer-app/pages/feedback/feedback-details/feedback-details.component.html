@@ -1,0 +1,29 @@
+<h1 mat-dialog-title *ngIf="editMode">Edit Feedback</h1>
+<h1 mat-dialog-title *ngIf="!editMode">Add Feedback</h1>
+
+<form (ngSubmit)="onSave()">
+
+  <div mat-dialog-content>
+
+    <div>
+        <h5>Rating</h5>
+        <app-star [editMode]="true" [(times)]="details.rating"></app-star>
+    </div>
+
+    <br>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Description" required [(ngModel)]="details.comment" name="comment">
+    </mat-form-field>
+    
+  </div>
+
+  <div mat-dialog-actions class="pull-right">
+    <button mat-button type="button" *ngIf="!loading" (click)="onCancel()">Cancel</button>
+
+    <button mat-raised-button color="primary" *ngIf="!loading" type="submit">SAVE</button>
+
+    <mat-spinner *ngIf="loading" color="warn"></mat-spinner>
+  </div>
+
+</form>

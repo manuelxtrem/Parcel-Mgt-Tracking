@@ -1,0 +1,19 @@
+.main-actions {
+  margin-top: 9px;
+}
+
+.mat-headline small {
+  font-size: 14px;
+}
+
+.small-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+.fabfloat {
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+  z-index: 100;
+}

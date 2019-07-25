@@ -1,0 +1,42 @@
+.card {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.card-heading {
+    background-color: whitesmoke;
+    padding: 0 25px;
+    height: 60px;
+}
+
+.spacer {
+    width: 50px;
+}
+
+.main-actions {
+    margin-top: 9px;
+}
+
+.delivered {
+    color: green;
+}
+
+.arrivals {
+    color: orange;
+}
+
+.transporting {
+    color: red;
+}
+
+.small-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+small {
+    font-size: 80%;
+    /* text-align: right; */
+}

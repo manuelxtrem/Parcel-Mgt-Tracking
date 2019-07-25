@@ -1,0 +1,50 @@
+<h1 mat-dialog-title *ngIf="editMode">Edit Parcel</h1>
+<h1 mat-dialog-title *ngIf="!editMode">Add Parcel</h1>
+
+<form (ngSubmit)="onSave()">
+
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Description" required [(ngModel)]="details.description" name="description">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Weight" required [(ngModel)]="details.weight" name="weight">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Value" required [(ngModel)]="details.value" name="Value">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Charge" required [(ngModel)]="details.charge" name="charge">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Insurance" required [(ngModel)]="details.insurance" name="insurance">
+    </mat-form-field>
+
+    <app-typeahead *ngIf="!editMode" [itemList]="driverList" placeholder="Driver" [value]="details.driver.fullName" [loading]="driverloading"
+      [hasImage]="false" (filter)="getDriverAhead($event)" (onTypedAhead)="onDriverTypedAhead($event)"></app-typeahead>
+
+    <app-typeahead [itemList]="routesList" placeholder="Route" [loading]="routeloading" [hasImage]="false" [value]="details.route.details"
+      (filter)="getRouteAhead($event)" (onTypedAhead)="onRouteTypedAhead($event)"></app-typeahead>
+
+    <app-typeahead *ngIf="!editMode" [itemList]="personsList" placeholder="Sender" [value]="details.sender.fullName" [loading]="customerloading"
+      [hasImage]="false" (filter)="getPersonAhead($event)" (onTypedAhead)="onSenderTypedAhead($event)"></app-typeahead>
+
+    <app-typeahead *ngIf="!editMode" [itemList]="personsList" placeholder="Recipient" [value]="details.recipient.fullName" [loading]="customerloading"
+      [hasImage]="false" (filter)="getPersonAhead($event)" (onTypedAhead)="onRecipientTypedAhead($event)"></app-typeahead>
+  </div>
+
+  <div mat-dialog-actions class="pull-right">
+    <button mat-button type="button" *ngIf="!loading" (click)="onCancel()">Cancel</button>
+
+    <button mat-raised-button *ngIf="!loading" color="primary" type="submit" [disabled]="!formValid()">
+      SAVE
+    </button>
+
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+
+</form>

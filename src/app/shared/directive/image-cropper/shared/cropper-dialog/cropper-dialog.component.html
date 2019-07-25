@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Crop the image</h1>
+<div mat-dialog-content>
+    <div class="imageBox">
+        <img class="img-thumbnail" src="" #cropHandle class="avatar" />
+        <div class="spinner text-center" *ngIf="!cropReady">
+            <i class="fa fa-spinner fa-3x fa-spin"></i>
+        </div>
+    </div>
+    <div class="text-center center" *ngIf="cropReady">
+        <button mat-icon-button (click)="onRotateLClick()">
+            <mat-icon>rotate_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRotateRClick()">
+            <mat-icon>rotate_right</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onZoomInClick()">
+            <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onZoomOutClick()">
+            <mat-icon>zoom_out</mat-icon>
+        </button>
+    </div>
+</div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSaveClick()">CROP</button>
+</div>

@@ -1,0 +1,13 @@
+mat-spinner {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: 47%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+mat-select {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,42 @@
+<h1 mat-dialog-title *ngIf="editMode">Edit Educational Status</h1>
+<h1 mat-dialog-title *ngIf="!editMode">Add Educational Status</h1>
+
+<form (ngSubmit)="onSave()">
+
+    <div mat-dialog-content>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Name of Institution" required [(ngModel)]="details.institution" name="institution">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Location of Institution" required [(ngModel)]="details.institutionLocation" name="institutionLocation">
+        </mat-form-field>
+
+        <mat-select class="full-width" placeholder="Level of Education" required [(ngModel)]="details.level" name="level">
+            <mat-option *ngFor="let item of levels" [value]="item">
+                {{ item }}
+            </mat-option>
+        </mat-select>
+
+        <mat-select class="full-width" placeholder="Year of Completion" required [(ngModel)]="details.year" name="year">
+            <mat-option *ngFor="let item of years" [value]="item">
+                {{item | date:'y'}}
+            </mat-option>
+        </mat-select>
+    </div>
+
+    <div mat-dialog-actions class="pull-right">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+
+        <button mat-button type="button" color="warn" (click)="onDelete()" *ngIf="editMode">
+            <span *ngIf="!loading">DELETE</span>
+            <mat-spinner *ngIf="loading" color="primary"></mat-spinner>
+        </button>
+
+        <button mat-raised-button color="primary" type="submit">
+            <span *ngIf="!loading">SAVE</span>
+            <mat-spinner *ngIf="loading" color="warn"></mat-spinner>
+        </button>
+    </div>
+
+</form>

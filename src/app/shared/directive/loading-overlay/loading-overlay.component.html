@@ -1,0 +1,11 @@
+<div class="app-loading-parent">
+
+    <div *ngIf="show" class="app-loading">
+        <div class="app-loading-text mat-heading-2">
+            <mat-spinner></mat-spinner> {{text}}
+        </div>
+    </div>
+
+    <ng-content></ng-content>
+
+</div>

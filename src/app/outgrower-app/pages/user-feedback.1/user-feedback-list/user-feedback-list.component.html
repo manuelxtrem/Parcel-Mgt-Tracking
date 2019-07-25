@@ -1,0 +1,38 @@
+<div class="mat-headline">User Feedback</div>
+<mat-card class="card">
+    <div class="card-heading">
+        <button mat-icon-button><mat-icon matSuffix>search</mat-icon></button>
+        <mat-form-field floatPlaceholder="never">
+            <input matInput #filterInput placeholder="Filter feedback">
+        </mat-form-field>
+
+        <button class="main-actions pull-right" mat-icon-button (click)="getFeedbacks()"><mat-icon>refresh</mat-icon></button>
+    </div>
+
+    <div class="feedback-list mat-elevation-z3s">
+        <mat-list>
+            <app-list #listComponent [ResultAsync]="feedbacksAsync" (pageChange)="onPage($event)">
+                <app-list-item *appItem="let feedback; let i=index">
+                    <mat-list-item class="cursor-pointer">
+                        <app-img mat-list-avatar [src]="feedback.customer.id" width="40" height="40" circle="true" memberPicture="true"></app-img>
+
+                        <label mat-line class="cursor-pointer">{{feedback.customer.surname}} {{feedback.customer.othername}}</label>
+                        <label mat-line class="otherInfoSize cursor-pointer">
+                            <app-star [times]="feedback.rating"></app-star> -
+                            <mat-icon class="small-icon">access_time</mat-icon>
+                            {{feedback.dateCreated | date:'d MMM y'}}
+                        </label>
+                        <label mat-line class="otherInfoSize cursor-pointer">
+                            {{feedback.comment}}
+                        </label>
+
+                        <app-responsive-buttons [buttons]="actionButtons" [buttonsData]="feedback.id"></app-responsive-buttons>
+
+                    </mat-list-item>
+
+                    <mat-divider></mat-divider>
+                </app-list-item>
+            </app-list>
+        </mat-list>
+    </div>
+</mat-card>

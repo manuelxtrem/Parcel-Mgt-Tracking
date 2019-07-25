@@ -1,0 +1,108 @@
+{
+    "total": 6,
+    "page": 0,
+    "data": [
+        {
+            "id": 1,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "cancelled"
+        },
+        {
+            "id": 2,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "processing"
+        },
+        {
+            "id": 3,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "transporting"
+        },
+        {
+            "id": 4,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 5,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "transporting"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        },
+        {
+            "id": 6,
+            "description": "Description of parcel",
+            "date": "2017-11-20",
+            "status": "delivered"
+        }
+    ]
+}

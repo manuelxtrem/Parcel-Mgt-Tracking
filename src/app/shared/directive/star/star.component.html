@@ -1,0 +1,4 @@
+<span (mouseleave)="onLeave()">
+    <mat-icon [class.star-edit]="editMode" [class.star]="!editMode" (click)="onClick(i)" (mouseover)="onHover(i)" *ngFor="let item of numberOfTimes; let i = index">star</mat-icon>
+    <mat-icon [class.star-edit]="editMode" [class.star]="!editMode" (click)="onClick(times + i + 1)" (mouseover)="onHover(times + i + 1)" *ngFor="let item of numberOfTimesLeft; let i = index">star_border</mat-icon>
+</span>

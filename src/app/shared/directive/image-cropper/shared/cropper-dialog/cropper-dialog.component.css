@@ -1,0 +1,14 @@
+.spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.imageBox {
+    width: 300px;
+    height: 300px;
+    display: block;
+    position: relative;
+}

@@ -1,0 +1,43 @@
+<div class="card-detail" (window:scroll)="onWindowScroll()">
+  <div class="col-md-3">
+    <app-loading-overlay [show]="loading" text="Saving image ...">
+      <mat-card class="no-padding">
+        <div class="person-picture" [class.fixed]="fixed">
+          <app-image-cropper [image]="personId" [member]="true" (onImage)="onImageUpload($event)"></app-image-cropper>
+        </div>
+      </mat-card>
+    </app-loading-overlay>
+  </div>
+
+  <div class="col-md-9">
+
+    <mat-accordion>
+
+      <mat-expansion-panel class="form-field family-details" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Primary Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-person-detail #personDetail [personID]="personId" [personType]="personType" [(editMode)]="personDetailEdit" (onPerson)="gotPerson($event)"></app-person-detail>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="form-field login-details" (opened)="onOpenedLogin()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Login Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-person-login [personID]="personId" [load]="loadLogin" [person]="personDetails"></app-person-login>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <div class="space"></div>
+
+  </div>
+</div>

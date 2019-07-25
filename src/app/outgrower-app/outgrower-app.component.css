@@ -1,0 +1,63 @@
+/deep/ html,
+/deep/ body {
+    height: 100%;
+    /* overflow: hidden; */
+    margin: 0;
+}
+
+mat-sidenav {
+    width: 230px;
+    background-color: #f8f8f8;
+}
+
+mat-list {
+    padding-top: 0 !important;
+}
+
+.sidenav-content {}
+
+.main-container {
+    height: 100%;
+}
+
+.menu-link {
+    text-decoration: none;
+}
+
+.menu-item {
+    padding: 7px 0 7px 24px;
+}
+
+.menu-link :hover {
+    background-color: #dddddd;
+}
+
+.menu-user {
+    color: #ffffff;
+    padding-top: 50px;
+    background-image: url(../../assets/img/small-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.menu-user .user-icon {
+    width: 33px !important;
+    height: 33px !important;
+    font-size: 33px !important;
+}
+
+.menu-user /deep/ .mat-list-text {
+    padding: 0 8px !important;
+}
+
+.nav-div {
+    margin-bottom: 10px;
+}
+
+.main-content {
+    padding: 20px;
+}

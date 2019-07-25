@@ -1,0 +1,34 @@
+.card-cover {
+  padding: 7px;
+}
+
+.star {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.rating-table {
+  width: 100%;
+}
+
+.rating-table td {
+  padding: 13px 0;
+}
+
+.star-progress {
+  margin: 0 5px;
+}
+
+.map {
+  width: 100%;
+  height: 250px;
+}
+
+.title {
+  padding: 24px 24px 0;
+}
+
+.card-map {
+  padding: 0 !important;
+}

@@ -1,0 +1,126 @@
+/deep/ html,
+/deep/ body {
+  height: 100%;
+  margin: 0;
+}
+
+mat-sidenav {
+  width: 250px;
+  background-color: #f8f8f8;
+}
+
+mat-list {
+  padding-top: 0 !important;
+}
+
+.main-container {
+  height: 100%;
+}
+
+.menu-link {
+  text-decoration: none;
+}
+
+.menu-item {
+  padding: 7px 0 7px 24px;
+}
+
+.submenu-item {
+  padding-left: 43px;
+}
+
+.submenu-caret {
+  font-size: 15px;
+  height: 15px;
+  width: 15px;
+}
+
+.menu-link:hover mat-list-item {
+  background-color: #dddddd;
+}
+
+.menu-link.active mat-list-item {
+  background-color: #ebebeb;
+}
+
+.menu-user {
+  color: #ffffff;
+  padding-top: 64px;
+  background-image: url(../../../../assets/img/small-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.behind {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.behind.staff {
+  background-image: url(../../../../assets/img/allback.jpg);
+}
+
+.behind.customer {
+  background-image: url(../../../../assets/img/service12.jpg);
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.menu-user .user-icon {
+  width: 33px !important;
+  height: 33px !important;
+  font-size: 33px !important;
+}
+
+.menu-user /deep/ .mat-list-text {
+  padding: 0 8px !important;
+}
+
+.nav-div {
+  margin-bottom: 10px;
+}
+
+.main-content {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  padding: 25px 25px 140px;
+}
+
+.main-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.footer-toolbar {
+  background-color: whitesmoke;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-toolbar span {
+  font-size: 13px;
+  color: #878787;
+}
+
+.svg-icon {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 30px !important;
+}
+
+.menu-link {
+  cursor: pointer;
+}
+
+.main-content-container {
+  width: auto;
+  height: 100%;
+  position: relative;
+}

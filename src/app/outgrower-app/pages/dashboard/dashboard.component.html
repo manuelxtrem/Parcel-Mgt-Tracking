@@ -1,0 +1,214 @@
+<div class="row">
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/parcel/transporting">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="deliverytruck"></mat-icon>
+          </td>
+          <td>Deliveries</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/people/customer">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="users"></mat-icon>
+          </td>
+          <td>Customers</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/map">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="routes"></mat-icon>
+          </td>
+          <td>Drivers' Map</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/damages">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="cancel"></mat-icon>
+          </td>
+          <td>Damages</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/feedback">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="star"></mat-icon>
+          </td>
+          <td>User Feedback</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+  <div class="card-cover col-xs-4 col-sm-4 col-md-2">
+    <mat-card class="clickable" routerLink="/manage/report">
+      <table>
+        <tr>
+          <td>
+            <mat-icon class="svg-icon" svgIcon="growth"></mat-icon>
+          </td>
+          <td>Reports</td>
+        </tr>
+      </table>
+    </mat-card>
+  </div>
+
+</div>
+
+<br>
+<br>
+
+<div class="row mid-content">
+
+  <div class="card-cover col-md-4 col-sm-6">
+    <app-loading-overlay [show]="loading">
+      <mat-card class="dash-widget text-center">
+        <circle-progress [percent]="summaryReport.delivery.satisfaction" subtitle="satisfaction" [radius]="100"></circle-progress>
+        <p>Customer Satisfaction</p>
+      </mat-card>
+    </app-loading-overlay>
+  </div>
+
+  <div class="card-cover col-md-4 col-sm-6">
+    <app-loading-overlay [show]="loading">
+      <mat-card class="dash-widget text-center">
+        <circle-progress [percent]="summaryReport.delivery.deliveries" [radius]="100" subtitle="of deliveries" outerStrokeColor="#3fb796"></circle-progress>
+        <p>Successful Deliveries</p>
+      </mat-card>
+    </app-loading-overlay>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <app-loading-overlay [show]="loading">
+      <mat-card class="dash-widget">
+        <mat-card-title>Average User Rating</mat-card-title>
+        <table class="rating-table">
+          <tbody>
+            <tr *ngFor="let rate of ratings; let i = index">
+              <td class="text-center">{{i + 1}}
+                <mat-icon class="star">star</mat-icon>
+              </td>
+              <td style="width: 80%">
+                <mat-progress-bar style="width: 95%" class="star-progress" color="accent" style="color: aqua;" mode="determinate" [value]="(rate / summaryReport.rating.total) * 100"></mat-progress-bar>
+              </td>
+              <td class="text-center">{{rate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
+    </app-loading-overlay>
+  </div>
+
+</div>
+
+<br>
+<br>
+
+<div class="row">
+
+  <div class="col-md-6 col-sm-6">
+    <mat-card class="dash-widget">
+      <mat-card-title>Parcels being transported</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <app-list #listComponent [ResultAsync]="deliveriesAsync" [showPagination]="false">
+            <app-list-item *appItem="let parcel; let i=index" (click)="onParcelSelect(parcel)">
+              <mat-list-item class="cursor-pointer">
+                <mat-icon mat-list-avatar svgIcon="package"></mat-icon>
+
+                <label mat-line>{{parcel.description}}</label>
+                <!-- <label mat-line>{{parcel.description}}</label> -->
+                <label mat-line *ngIf="parcel.route">
+                  <mat-icon class="small-icon">location_on</mat-icon>
+                  {{parcel.route.details}}
+                </label>
+
+                <label mat-line class="otherInfoSize" *ngIf="parcel.status == 'delivered'">
+                  <mat-icon class="small-icon">check_circle</mat-icon>
+                  {{parcel.dateModified | date:'d MMM y'}}
+                </label>
+
+                <label mat-line class="otherInfoSize" *ngIf="parcel.status != 'delivered'">
+                  <mat-icon class="small-icon">access_time</mat-icon>
+                  {{parcel.date | date:'d MMM y'}}
+                </label>
+
+                <label mat-line class="otherInfoSize">
+                  <mat-icon class="small-icon">person</mat-icon>
+                  <a routerLink="/manage/people/customer/details/{{parcel.senderId}}">
+                    {{parcel.sender.fullName}}
+                  </a> ->
+                  <a routerLink="/manage/people/customer/details/{{parcel.recipientId}}">
+                    {{parcel.recipient.fullName}}
+                  </a>
+                </label>
+
+                <div class="text-right">
+                  <small [class]="parcel.status">
+                    <span *ngIf="parcel.status === 'transporting'" matTooltip="Estimated Time of Arrival">
+                      ETA {{ parcel.eta | secondstime }}
+                    </span>
+                  </small>
+                </div>
+
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+            </app-list-item>
+          </app-list>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md-6 col-sm-6">
+    <mat-card class="dash-widget">
+      <mat-card-title>Drivers currently transporting</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <app-list #listComponent [ResultAsync]="driversAsync" [showPagination]="false">
+            <app-list-item *appItem="let person; let i=index" (click)="onParcelSelect(person)">
+              <mat-list-item class="cursor-pointer">
+                <app-img mat-list-avatar [src]="person.id" width="40" height="40" circle="true" memberPicture="true"></app-img>
+
+                <label mat-line>{{person.surname}} {{person.othername}}</label>
+                <label mat-line class="otherInfoSize">
+                  <b>{{person.gender}}</b> | {{person.mobileOne}}
+                </label>
+
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+            </app-list-item>
+          </app-list>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>

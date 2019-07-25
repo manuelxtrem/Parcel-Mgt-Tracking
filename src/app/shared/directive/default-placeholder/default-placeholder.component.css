@@ -1,0 +1,22 @@
+.item-icon {
+    width: 100%;
+    text-align: center;
+    padding-top: 35px;
+}
+
+.item-image {
+    font-size: 70px;
+    color: #D3D3D3;
+}
+
+.item-content {
+    text-align: center;
+    padding-top: 2px;
+    margin-top: 20px;
+}
+
+.item-content span {
+    color: #D3D3D3;
+    font-size: 23px;
+    font-family: 'Roboto Condensed', sans-serif !important;
+}

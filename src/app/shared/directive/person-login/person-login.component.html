@@ -1,0 +1,54 @@
+<app-loading-overlay [show]="loading">
+
+  <form #personForm (ngSubmit)="onSave()">
+    <!-- <form *ngIf="!loading" #personForm (ngSubmit)="onSave()"> -->
+
+    <div class="controls pull-right">
+      <button mat-button color="accent" *ngIf="!editMode" (click)="editMode = !editMode">Edit</button>
+      <button mat-button color="accent" *ngIf="editMode" (click)="editMode = !editMode">Cancel</button>
+      <button mat-raised-button color="primary" *ngIf="editMode" (click)="onSave()" [disabled]="!emailFC.valid || !passwordFC.valid || !repeatPasswordFC.valid || passwordFC.value !== repeatPasswordFC.value">Save</button>
+    </div>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="loginDetail.email" [readonly]="!editMode" [errorStateMatcher]="matcher" [formControl]="emailFC">
+      <mat-error *ngIf="emailFC.hasError('required')">
+        Email address is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="emailFC.hasError('email')">
+        Email address is not valid
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="loginDetail.password" [readonly]="!editMode" [errorStateMatcher]="matcher"
+        [formControl]="passwordFC">
+      <mat-error *ngIf="passwordFC.hasError('required')">
+        Password is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordFC.hasError('minlength')">
+        Should not be less than 6 characters
+      </mat-error>
+      <mat-error *ngIf="passwordFC.value != repeatPasswordFC.value">
+        Both passwords should
+        <strong>match</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Repeat Password" type="password" name="repeatPassword" [(ngModel)]="loginDetail.repeatPassword" [readonly]="!editMode" [errorStateMatcher]="matcher"
+        [formControl]="repeatPasswordFC">
+      <mat-error *ngIf="repeatPasswordFC.hasError('required')">
+        Repeat Password is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordFC.value != repeatPasswordFC.value">
+        Both passwords should
+        <strong>match</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+</app-loading-overlay>

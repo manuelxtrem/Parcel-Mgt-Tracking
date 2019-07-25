@@ -1,0 +1,29 @@
+.main-actions {
+    margin-top: 9px;
+}
+
+.truncate {
+	/* width: 40%; */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.rating {
+    width: 150px;
+}
+
+/deep/ .feedback-list .mat-list-text {
+    width: 80% !important;
+    padding-right: 20px;
+}
+
+.spacer {
+    width: 200px;
+}
+
+@media (max-width:900px) {
+    .spacer,.truncate {
+        display: none;
+    }
+}

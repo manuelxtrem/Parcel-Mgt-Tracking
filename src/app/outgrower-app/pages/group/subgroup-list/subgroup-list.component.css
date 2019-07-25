@@ -1,0 +1,26 @@
+.card {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.card-heading {
+    background-color: whitesmoke;
+    padding: 0 25px;
+    height: 60px;
+}
+
+.img-avatar {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    padding-right: 50px;
+}
+
+.main-actions {
+    margin-top: 9px;
+}
+
+.placeholder {
+    height: 300px;
+}

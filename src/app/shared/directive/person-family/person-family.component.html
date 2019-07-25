@@ -1,0 +1,44 @@
+<button mat-button color="accent" (click)="addEntry(personSpouse)">
+    <mat-icon>add</mat-icon> Add Spouse
+</button>
+<button mat-button color="accent" (click)="addEntry(personChild)">
+    <mat-icon>add</mat-icon> Add Child
+</button>
+<button mat-button color="accent" (click)="refresh()">
+    <mat-icon>refresh</mat-icon> Refresh
+</button>
+
+<app-loading-overlay [show]="loading">
+
+    <mat-nav-list class="edu-list">
+
+        <mat-list-item *ngIf="spouses.length === 0  && children.length === 0">
+            <mat-icon mat-list-icon>warning</mat-icon>
+            <h4 mat-line>No member yet</h4>
+        </mat-list-item>
+
+        <h3 mat-subheader *ngIf="spouses.length > 0">Spouse(s)</h3>
+        <mat-list-item *ngFor="let item of spouses; let i of index">
+            <mat-icon mat-list-icon>person</mat-icon>
+
+            <h4 mat-line>{{item.surname}} {{item.othername}}</h4>
+            <p mat-line> 45 years | {{item.mobileOne}} </p>
+            <p mat-line>Spouse</p>
+
+            <button mat-icon-button (click)="onItemSelect(i, item)"><mat-icon>edit</mat-icon></button>
+        </mat-list-item>
+
+        <h3 mat-subheader *ngIf="children.length > 0">Children</h3>
+        <mat-list-item *ngFor="let item of children; let i of index">
+            <mat-icon mat-list-icon>person</mat-icon>
+
+            <h4 mat-line>{{item.surname}} {{item.othername}}</h4>
+            <p mat-line> 45 years | {{item.mobileOne}} </p>
+            <p mat-line>Child | {{item.maritalStatus}}</p>
+
+            <button mat-icon-button (click)="onItemSelect(i, item)"><mat-icon>edit</mat-icon></button>
+        </mat-list-item>
+
+    </mat-nav-list>
+
+</app-loading-overlay>

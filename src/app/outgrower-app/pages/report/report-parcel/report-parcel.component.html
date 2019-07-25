@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-md-3">
+    <mat-card>
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="dateFromPicker" [(ngModel)]="dateFrom" placeholder="Start Date" (dateChange)="dateChanged($event)">
+        <mat-datepicker-toggle matSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateFromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="dateToPicker" [(ngModel)]="dateTo" placeholder="End Date" (dateChange)="dateChanged($event)">
+        <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateToPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Select Parcel Type" [(ngModel)]="parcelType" (selectionChange)="onParcelType($event)" (change)="onParcelType($event)">
+          <mat-option *ngFor="let parcelType of parcelTypes" [value]="parcelType.value">
+            {{ parcelType.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-typeahead [itemList]="driverList" placeholder="Select Driver" value="" [loading]="driverloading" [hasImage]="false"
+        (filter)="getDriverAhead($event)" (onTypedAhead)="onDriverTypedAhead($event)"></app-typeahead>
+
+      <button mat-raised-button color="accent" (click)="printer.print()">Print</button>
+
+    </mat-card>
+  </div>
+  <div class="col-md-9">
+    <mat-card>
+      <mat-card-title>Parcels Report</mat-card-title>
+      <mat-card-subtitle>
+        {{ parcelType }} parcels from
+        <b>{{ dateFrom | date:'d MMM y' }}</b> to
+        <b>{{ dateTo | date:'d MMM y' }}</b>
+        <span *ngIf="driverId > 0">
+          | Driver -
+          <b>{{ driverName | capitalize }}</b>
+        </span>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <mat-list>
+          <app-list #listComponent [ResultAsync]="deliveriesAsync" [showPagination]="false">
+            <app-list-item *appItem="let parcel; let i=index">
+              <mat-list-item class="cursor-pointer">
+                <mat-icon mat-list-avatar svgIcon="package"></mat-icon>
+
+                <label mat-line>{{parcel.description}}</label>
+                <!-- <label mat-line>{{parcel.description}}</label> -->
+                <label mat-line *ngIf="parcel.route">
+                  <mat-icon class="small-icon">location_on</mat-icon>
+                  {{parcel.route.details}}
+                </label>
+
+                <label mat-line class="otherInfoSize" *ngIf="parcel.status == 'delivered'">
+                  <mat-icon class="small-icon">check_circle</mat-icon>
+                  {{parcel.dateModified | date:'d MMM y'}}
+                </label>
+
+                <label mat-line class="otherInfoSize" *ngIf="parcel.status != 'delivered'">
+                  <mat-icon class="small-icon">access_time</mat-icon>
+                  {{parcel.date | date:'d MMM y'}}
+                </label>
+
+                <label mat-line class="otherInfoSize">
+                  <mat-icon class="small-icon">person</mat-icon>
+                  <a routerLink="/manage/people/customer/details/{{parcel.senderId}}">
+                    {{parcel.sender.fullName}}
+                  </a> ->
+                  <a routerLink="/manage/people/customer/details/{{parcel.recipientId}}">
+                    {{parcel.recipient.fullName}}
+                  </a>
+                </label>
+
+              </mat-list-item>
+
+              <mat-divider></mat-divider>
+            </app-list-item>
+          </app-list>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<app-printer #printer>
+  <style type="text/css">
+    body {
+      background: rgb(204, 204, 204);
+    }
+
+    .page {
+      background: white;
+      width: 21cm;
+      height: 29.7cm;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 0.5cm;
+      box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+
+    @media print {
+      body,
+      .page {
+        margin: 0;
+        box-shadow: 0;
+      }
+    }
+  </style>
+
+  <div class="page">
+    <p>
+      {{ parcelType | capitalize}} parcels from
+      <b>{{ dateFrom | date:'d MMM y' }}</b> to
+      <b>{{ dateTo | date:'d MMM y' }}</b>
+      <span *ngIf="driverId > 0">
+        | Driver -
+        <b>{{ driverName | capitalize }}</b>
+      </span>
+    </p>
+    <table style="width: 100%; border: 1px solid #000;" cellspacing="10">
+      <thead style="font-weight: bold">
+        <tr>
+          <td>Description</td>
+          <td>Location</td>
+          <td>Date</td>
+          <td>Sender</td>
+          <td>Recipient</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let parcel of parcels">
+          <td>{{ parcel.description }}</td>
+          <td>{{ parcel.route.details }}</td>
+          <td>{{ parcel.dateModified | date:'d MMM y' }}</td>
+          <td>{{ parcel.sender.fullName }}</td>
+          <td>{{ parcel.recipient.fullName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-printer>

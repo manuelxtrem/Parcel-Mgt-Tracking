@@ -1,0 +1,20 @@
+.form-field {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+mat-select.form-field {
+    /* margin-top: 10px; */
+    margin-bottom: 15px;
+}
+
+mat-spinner {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: 47%;
+}
+
+.loading {
+    text-align: center;
+}

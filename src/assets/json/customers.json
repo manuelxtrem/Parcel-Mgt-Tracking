@@ -1,0 +1,61 @@
+{
+    "total": 10,
+    "page": 0,
+    "data": [
+        {
+            "id": 1,
+            "surname": "Agadzi",
+            "othername": "Emmanuel Osei",
+            "gender": "Male",
+            "streetAddress": "",
+            "community": "",
+            "personType": "Customer",
+            "mobileOne": "0243534545",
+            "mobileTwo": "0385849858"
+        },
+        {
+            "id": 2,
+            "surname": "Jakes",
+            "othername": "Blakes",
+            "gender": "Male",
+            "streetAddress": "",
+            "community": "",
+            "personType": "Customer",
+            "mobileOne": "0243534545",
+            "mobileTwo": "0385849858"
+        },
+        {
+            "id": 3,
+            "surname": "Asare",
+            "othername": "Francis",
+            "gender": "Male",
+            "streetAddress": "",
+            "community": "",
+            "personType": "Customer",
+            "mobileOne": "0243534545",
+            "mobileTwo": "0385849858"
+        },
+        {
+            "id": 4,
+            "surname": "Bediako",
+            "othername": "Dorothy",
+            "gender": "Female",
+            "streetAddress": "",
+            "community": "",
+            "personType": "Customer",
+            "mobileOne": "0243534545",
+            "mobileTwo": "0385849858"
+        },
+        {
+            "id": 5,
+            "surname": "McJohnson",
+            "othername": "Joshua",
+            "gender": "Male",
+            "streetAddress": "",
+            "community": "",
+            "personType": "Customer",
+            "mobileOne": "0243534545",
+            "mobileTwo": "0385849858"
+        }
+    ]
+}

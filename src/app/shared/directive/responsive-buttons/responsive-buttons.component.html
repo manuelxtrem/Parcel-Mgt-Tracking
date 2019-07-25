@@ -1,0 +1,35 @@
+<div (window:resize)="onResize()" *ngIf="buttons && buttons.length > 0">
+
+    <div *ngIf="deviceXS" class="pull-right">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item *ngFor="let item of buttons" (click)="item.callback(buttonsData)">{{item.title}}</button>
+        </mat-menu>
+    </div>
+
+    <div *ngIf="deviceSM || deviceMD" class="pull-right">
+        <table>
+            <tr>
+                <td *ngFor="let item of buttons">
+                    <button mat-icon-button [color]="item.color" [matTooltip]="item.title" (click)="item.callback(buttonsData)">
+                        <mat-icon>{{item.icon}}</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="deviceLG">
+        <table>
+            <tr>
+                <td *ngFor="let item of buttons">
+                    <button mat-button [color]="item.color" (click)="item.callback(buttonsData)">
+                        <mat-icon>{{item.icon}}</mat-icon>
+                        {{item.title}}
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

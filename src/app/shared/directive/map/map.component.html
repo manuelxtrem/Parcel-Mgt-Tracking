@@ -1,0 +1,11 @@
+<agm-map [latitude]="latitude || 0" [longitude]="longitude || 0" [streetViewControl]="false" [zoom]="zoom" [draggable]="editMode"
+  [zoomControl]="editMode" [scrollwheel]="editMode">
+  <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(i)" [latitude]="m.latitude" [longitude]="m.longitude"
+    [label]="m.label" [markerDraggable]="false" [iconUrl]="m.icon">
+
+    <agm-info-window *ngIf="m.popupDetails">
+      <app-map-popup [details]="m.popupDetails"></app-map-popup>
+    </agm-info-window>
+
+  </agm-marker>
+</agm-map>

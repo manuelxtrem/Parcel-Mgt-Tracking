@@ -1,0 +1,233 @@
+<h1 mat-dialog-title>Details of Parcel</h1>
+
+<div mat-dialog-content>
+
+  <mat-chip-list>
+    <mat-chip>
+      {{ details.dateCreated | date:'d MMM y'}}
+    </mat-chip>
+    <mat-chip [class.success]="details.status == 'delivered'">
+      {{ details.status | capitalize}}
+    </mat-chip>
+  </mat-chip-list>
+  <br>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Description" readonly [value]="details.description">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Weight" readonly [value]="details.weight + ' kg'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Charge" readonly [value]="details.charge | currency:'GHS'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Insurance" readonly [value]="details.insurance | currency:'GHS'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Driver" readonly [value]="details.driver.fullName">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Route" readonly [value]="details.route.details">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Sender" readonly [value]="details.sender.fullName">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Recipient" readonly [value]="details.recipient.fullName">
+  </mat-form-field>
+
+</div>
+
+
+<div mat-dialog-actions class="pull-right">
+  <button mat-button mat-dialog-close>CLOSE</button>
+  <button mat-raised-button color="accent" (click)="printer.print()">PRINT</button>
+</div>
+
+<app-printer #printer>
+  <style>
+    td,
+    th {
+      border: none;
+    }
+  </style>
+
+  <br>
+  <hr>
+  <br>
+  <table class="main-table" style="width: 100%; border: 1px solid #000;">
+    <tbody>
+      <tr>
+        <td colspan="2" style="width: 49.8809%; border-bottom: 1px solid #000;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td>
+                  <img src="./assets/img/eParcel2.png" alt="">
+                </td>
+                <td>eParcel Delivery Manager</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 49.8809%;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width: 40%;">Date</td>
+                <td style="width: 60%;">{{ details.dateCreated | date:'d MMM y'}}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Charge</td>
+                <td style="width: 60%;">{{ details.charge | currency:'GHS' }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Insurance (1%)</td>
+                <td style="width: 60%;">{{ details.insurance | currency:'GHS' }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Total Price</td>
+                <td style="width: 60%;">{{ (details.charge + details.insurance) | currency:'GHS' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td style="width: 45.2011%;">
+          <table style="width: 100%;" cellspacing="10">
+            <tbody>
+              <tr>
+                <td style="width: 100px;">
+                  <!-- <img src="https://internationalbarcodes.net/wp-content/uploads/2017/04/QR%20code%20example.jpg" alt="" width="100" height="100"/> -->
+                  <qrcode [qrdata]="getRecipientQRHash()" [size]="100" [level]="'M'"></qrcode>
+
+                </td>
+                <td>Scan to view details on Mobile App.</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 49.8809%; border-bottom: 1px solid #000; border-top: 1px solid #000;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width: 40%;" colspan="2">
+                  <strong>Shipper (Sender)</strong>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Name:</td>
+                <td style="width: 60%;">{{ details.sender.fullName }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Address:</td>
+                <td style="width: 60%;">{{ details.sender.address }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">City:</td>
+                <td style="width: 60%;">{{ details.sender.city }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Contact:</td>
+                <td style="width: 60%;">{{ details.sender.mobileOne }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Origin:</td>
+                <td style="width: 60%;">{{ details.route.source }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td style="width: 45.2011%; border-left: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width: 40%;" colspan="2">
+                  <strong>Consignee (Recipient)</strong>&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Name:</td>
+                <td style="width: 60%;">{{ details.recipient.fullName }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Address:</td>
+                <td style="width: 60%;">{{ details.recipient.address }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">City:</td>
+                <td style="width: 60%;">{{ details.recipient.city }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Contact:</td>
+                <td style="width: 60%;">{{ details.recipient.mobileOne }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Destination:</td>
+                <td style="width: 60%;">{{ details.route.destination }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 49.8809%;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width: 40%;" colspan="2">
+                  <strong>Consignment Details</strong>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Service:</td>
+                <td style="width: 60%;">PARCEL DELIVERY</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Description:</td>
+                <td style="width: 60%;">{{ details.description }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Weight:</td>
+                <td style="width: 60%;">{{ details.weight }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Value:</td>
+                <td style="width: 60%;">{{ details.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td style="width: 45.2011%;">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="width: 40%;">&nbsp;</td>
+                <td style="width: 60%;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Issued On:</td>
+                <td style="width: 60%;">{{ todate | date:'EEE, d MMMM y' }} at {{ todate | date:'hh:m a' }}</td>
+              </tr>
+              <tr>
+                <td style="width: 40%;">Issued By:</td>
+                <td style="width: 60%;">{{ loginService.getUserProfile().fullName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</app-printer>

@@ -1,0 +1,108 @@
+<mat-sidenav-container class="main-container" (window:resize)="onResize()" class="behind" [class.staff]="!customer" [class.customer]="customer">
+  <mat-sidenav #sidenav [mode]="windowMode" [opened]="sidebarOpened" class="sidenav-content mat-elevation-z2">
+    <!-- <div slimScroll width="auto" height="100vh" size="3px"> -->
+    <div>
+
+      <mat-list>
+        <mat-list-item class="menu-user">
+          <!-- <mat-icon mat-list-icon class="user-icon">person</mat-icon> -->
+          <app-img matListAvatar [src]="userProfile.id" memberPicture="true" circle="true"></app-img>
+          <h4 mat-line>{{userProfile.fullName}}</h4>
+          <p mat-line>
+            <small>{{userProfile.personType | uppercase}}</small>
+          </p>
+
+          <button mat-icon-button (click)="onLogout()">
+            <mat-icon class="toolbar-icon">settings_power</mat-icon>
+          </button>
+          <!-- <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+                    <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item (click)="onProfile()">Profile</button>
+                        <button mat-menu-item (click)="onLogout()">Logout</button>
+                    </mat-menu> -->
+        </mat-list-item>
+
+        <mat-divider class="nav-div"></mat-divider>
+      </mat-list>
+
+      <mat-list>
+        <div *ngFor="let item of menuItems">
+          <a *ngIf="item.link && item.hasAccess()" [routerLink]="item.link" class="menu-link" (click)="onMenuItemClick()" routerLinkActive="active">
+            <mat-list-item class="menu-item">
+              <mat-icon mat-list-icon class="svg-icon" *ngIf="item.svgIcon" [svgIcon]="item.svgIcon"></mat-icon>
+              <mat-icon mat-list-icon *ngIf="!item.svgIcon">{{item.icon}}</mat-icon>
+              <h3 mat-line>{{item.title}}</h3>
+            </mat-list-item>
+          </a>
+
+          <a *ngIf="!item.link && item.hasAccess()" class="menu-link" (click)="item.expand = !item.expand">
+            <mat-list-item class="menu-item">
+              <mat-icon mat-list-icon class="svg-icon" *ngIf="item.svgIcon" [svgIcon]="item.svgIcon"></mat-icon>
+              <mat-icon mat-list-icon *ngIf="!item.svgIcon">{{item.icon}}</mat-icon>
+              <h3 mat-line>{{item.title}}</h3>
+              <mat-icon *ngIf="!item.expand" class="submenu-caret">keyboard_arrow_right</mat-icon>
+              <mat-icon *ngIf="item.expand" class="submenu-caret">keyboard_arrow_down</mat-icon>
+            </mat-list-item>
+          </a>
+
+          <div *ngIf="item.submenu && item.expand && item.hasAccess()">
+            <a [routerLink]="subitem.link" class="menu-link" *ngFor="let subitem of item.submenu" (click)="onMenuItemClick()" routerLinkActive="active">
+              <mat-list-item class="submenu-item">
+                <mat-icon mat-list-icon>label_outline</mat-icon>
+                <h3 mat-line>{{subitem.title}}</h3>
+              </mat-list-item>
+            </a>
+          </div>
+        </div>
+
+        <!--
+        <a *ngIf="item.link != null" [routerLink]="item.link">
+            <i class="{{item.icon}}"></i>
+            <span>{{item.title}}</span>
+            <span *ngIf="item.label_text!=null" class="label {{item.label_color}} pull-right">{{item.label_text}}</span>
+        </a>
+        <a *ngIf="item.link == null" href="#">
+            <i class="{{item.icon}}"></i>
+            <span>{{item.title}}</span>
+            <span *ngIf="item.label_text!=null" class="label {{item.label_color}} pull-right">{{item.label_text}}</span>
+            <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu" *ngIf="item.submenu!=null">
+            <li *ngFor="let subitem of item.submenu" [class.active]="subitem.active == true">
+                <a [routerLink]="subitem.link"><i class="fa fa-circle-o"></i> {{subitem.title}}</a>
+            </li>
+        </ul>
+        -->
+
+      </mat-list>
+    </div>
+  </mat-sidenav>
+
+  <div>
+    <mat-toolbar color="primary" class="main-toolbar mat-elevation-z5">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>{{title}}</span>
+      <span class="toolbar-spacer"></span>
+
+      <button mat-icon-button (click)="onLogout()">
+        <mat-icon class="toolbar-icon">settings_power</mat-icon>
+      </button>
+    </mat-toolbar>
+
+
+    <!-- <div slimScroll width="auto" height="100vh" size="3px"> -->
+    <!-- <div class="main-content-container"> -->
+    <div class="main-content">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- <mat-toolbar color="accent" class="footer-toolbar">
+        <span>&copy; {{todate | date:'y'}} - {{copyright}}. All rights reserved</span>
+      </mat-toolbar> -->
+    <!-- </div> -->
+
+  </div>
+
+</mat-sidenav-container>

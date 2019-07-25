@@ -1,0 +1,171 @@
+<app-loading-overlay [show]="loading">
+
+  <form #personForm (ngSubmit)="onSave()">
+    <!-- <form *ngIf="!loading" #personForm (ngSubmit)="onSave()"> -->
+
+    <div class="controls pull-right" *ngIf="notSubPerson">
+      <button mat-button color="accent" *ngIf="!editMode && !addMode" (click)="editMode = !editMode">Edit</button>
+      <button mat-button color="accent" *ngIf="editMode" (click)="editMode = !editMode">Cancel</button>
+      <button mat-raised-button color="primary" *ngIf="addMode" [disabled]="!surnameFC.valid || !othernameFC.valid || !genderFC.valid || !dateOfBirthFC.valid || !mobileOneFC.valid || !mobileTwoFC.valid || !emailFC.valid || !passwordFC.valid || !repeatPasswordFC.valid">Save</button>
+      <button mat-raised-button color="primary" *ngIf="editMode" [disabled]="!surnameFC.valid || !othernameFC.valid || !genderFC.valid || !dateOfBirthFC.valid || !mobileOneFC.valid || !mobileTwoFC.valid">Save</button>
+    </div>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Surname" name="surname" required [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="surnameFC" [(ngModel)]="personDetail.surname">
+      <mat-error *ngIf="surnameFC.hasError('required')">
+        Surname is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Other Names" name="othername" required [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="othernameFC" [(ngModel)]="personDetail.othername">
+      <mat-error *ngIf="othernameFC.hasError('required')">
+        Other Names is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Gender" name="gender" required [disabled]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="genderFC" [(ngModel)]="personDetail.gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Unspecified">Unspecified</mat-option>
+      </mat-select>
+      <mat-error *ngIf="genderFC.hasError('required')">
+        Gender is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput [matDatepicker]="picker" placeholder="Date of Birth" required name="dateOfBirth" [readonly]="!editMode && !addMode"
+        [errorStateMatcher]="matcher" [formControl]="dateOfBirthFC" [(ngModel)]="personDetail.dateOfBirth">
+      <mat-datepicker-toggle matSuffix *ngIf="editMode" [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="dateOfBirthFC.hasError('required')">
+        Date of Birth is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Mobile 1" name="mobileOne" required [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="mobileOneFC" [(ngModel)]="personDetail.mobileOne">
+      <mat-error *ngIf="mobileOneFC.hasError('pattern') && !mobileOneFC.hasError('required')">
+        Please enter a valid mobile number (0XXXXXXXXX)
+      </mat-error>
+      <mat-error *ngIf="mobileOneFC.hasError('required')">
+        Mobile 1 is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Mobile 2" name="mobileTwo" [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="mobileTwoFC" [(ngModel)]="personDetail.mobileTwo">
+      <mat-error *ngIf="mobileTwoFC.hasError('pattern') && !mobileTwoFC.hasError('required')">
+        Please enter a valid mobile number (0XXXXXXXXX)
+      </mat-error>
+      <mat-error *ngIf="mobileTwoFC.hasError('required')">
+        Mobile 2 is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Address" name="address" required [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher"
+        [formControl]="addressFC" [(ngModel)]="personDetail.address">
+      <mat-error *ngIf="addressFC.hasError('required')">
+        Address is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="personType === personTypeDriver">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Vehicle Number" required name="vehicleNo" [readonly]="!editMode && !addMode" [(ngModel)]="personDetail.vehicleNo">
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Vehicle Description" required name="vehicleDescription" [readonly]="!editMode && !addMode" [(ngModel)]="personDetail.vehicleDescription">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="addMode">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Email" type="email" name="email" [(ngModel)]="loginDetail.email" required [readonly]="!editMode && !addMode"
+          [errorStateMatcher]="matcher" [formControl]="emailFC">
+        <mat-error *ngIf="emailFC.hasError('required')">
+          Email address is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="emailFC.hasError('email')">
+          Email address is not valid
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Password" type="password" name="password" required [(ngModel)]="loginDetail.password" [readonly]="!editMode && !addMode"
+          [errorStateMatcher]="matcher" [formControl]="passwordFC">
+        <mat-error *ngIf="passwordFC.hasError('required')">
+          Password is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFC.hasError('minlength')">
+          Should not be less than 6 characters
+        </mat-error>
+        <mat-error *ngIf="passwordFC.value != repeatPasswordFC.value">
+          Both passwords should
+          <strong>match</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Repeat Password" type="password" name="repeatPassword" required [(ngModel)]="loginDetail.repeatPassword"
+          [readonly]="!editMode && !addMode" [errorStateMatcher]="matcher" [formControl]="repeatPasswordFC">
+        <mat-error *ngIf="repeatPasswordFC.hasError('required')">
+          Repeat Password is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFC.value != repeatPasswordFC.value">
+          Both passwords should
+          <strong>match</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <mat-form-field class="form-field">
+            <input matInput placeholder="Mobile 3" name="mobileThree" [readonly]="!editMode && !addMode" [(ngModel)]="personDetail.mobileThree">
+        </mat-form-field>
+
+        <mat-form-field class="form-field" *ngIf="notSubPerson">
+            <input matInput placeholder="Group" name="group" [readonly]="!editMode && !addMode" [(ngModel)]="personDetail.group">
+        </mat-form-field>
+
+        <mat-form-field class="form-field" *ngIf="notSubPerson">
+            <input matInput placeholder="Sub Group" name="subGroup" [readonly]="!editMode && !addMode" [(ngModel)]="personDetail.subGroup">
+        </mat-form-field>
+
+        <mat-select class="form-field" placeholder="Sub Group Role" name="subGroupRole" [disabled]="!editMode" [(ngModel)]="personDetail.subGroupRole"  *ngIf="notSubPerson">
+            <mat-option value="Member">Member</mat-option>
+            <mat-option value="Charperson">Charperson</mat-option>
+            <mat-option value="Vice Charperson">Vice Charperson</mat-option>
+            <mat-option value="Secretary">Secretary</mat-option>
+            <mat-option value="Treasurer">Treasurer</mat-option>
+        </mat-select> -->
+
+    <!-- <div class="controls-bottom pull-right" *ngIf="notSubPerson">
+      <button mat-button color="accent" *ngIf="!editMode && !addMode" (click)="editMode = !editMode">Edit</button>
+      <button mat-button color="accent" *ngIf="editMode" (click)="editMode = !editMode">Cancel</button>
+      <button mat-raised-button color="primary" *ngIf="editMode || addMode" (click)="onSave()">Save</button>
+    </div> -->
+    <br>
+    <br>
+
+  </form>
+
+</app-loading-overlay>

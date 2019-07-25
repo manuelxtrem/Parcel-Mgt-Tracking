@@ -1,0 +1,49 @@
+.card-cover {
+  padding: 7px;
+}
+
+.star {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.rating-table {
+  width: 100%;
+}
+
+.rating-table td {
+  padding: 13px 0;
+}
+
+.star-progress {
+  margin: 0 5px;
+}
+
+.mat-headline small {
+  font-size: 14px;
+}
+
+.small-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.svg-icon {
+  width: 35px !important;
+  height: 35px !important;
+  font-size: 35px !important;
+}
+
+table {
+  width: 100%;
+}
+
+.mid-content {
+  margin: 10px 0;
+}
+
+.clickable {
+  cursor: pointer;
+}

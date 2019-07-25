@@ -1,0 +1,37 @@
+<div class="mat-headline">Routes</div>
+<mat-card class="card">
+    <div class="card-heading">
+        <button mat-icon-button><mat-icon matSuffix>search</mat-icon></button>
+        <mat-form-field floatPlaceholder="never">
+            <input matInput #filterInput placeholder="Filter routes">
+        </mat-form-field>
+
+        <button class="main-actions pull-right" mat-icon-button (click)="getRoutes()"><mat-icon>refresh</mat-icon></button>
+    </div>
+
+    <div class="parcel-list mat-elevation-z3s">
+        <mat-list>
+            <app-list #listComponent [ResultAsync]="routesAsync" (pageChange)="onPage($event)">
+                <app-list-item *appItem="let route; let i=index" (dblclick)="onRouteSelect(route)">
+                    <mat-list-item class="cursor-pointer">
+                        <mat-icon mat-list-avatar svgIcon="location"></mat-icon>
+
+                        <label mat-line>{{route.details}}</label>
+                        <!-- <label mat-line> -->
+                            <!-- TO: {{route.destination}} -->
+                        <!-- </label> -->
+
+                        <div class="spacer"></div>
+
+                        <app-responsive-buttons [buttons]="actionButtons" [buttonsData]="route"></app-responsive-buttons>
+
+                    </mat-list-item>
+
+                    <mat-divider></mat-divider>
+                </app-list-item>
+            </app-list>
+        </mat-list>
+    </div>
+</mat-card>
+
+<app-fab (click)="onAddClick()">add</app-fab>

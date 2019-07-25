@@ -1,0 +1,29 @@
+<div class="card-detail" (window:scroll)="onWindowScroll()">
+  <div class="col-md-3">
+    <app-loading-overlay [show]="true" text="You can upload picture after saving the details first.">
+      <mat-card class="no-padding">
+        <div class="person-picture" [class.fixed]="fixed">
+          <app-image-cropper></app-image-cropper>
+        </div>
+      </mat-card>
+    </app-loading-overlay>
+  </div>
+
+  <div class="col-md-9">
+
+    <mat-card>
+
+      <mat-card-header>
+        <mat-card-title>
+          Primary Details
+        </mat-card-title>
+      </mat-card-header>
+
+      <app-person-detail #personDetail [personType]="personType" (onPerson)="gotPerson($event)" [addMode]="true"></app-person-detail>
+
+    </mat-card>
+
+    <div class="space"></div>
+
+  </div>
+</div>

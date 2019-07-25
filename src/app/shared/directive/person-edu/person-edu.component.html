@@ -1,0 +1,29 @@
+<button mat-button color="accent" (click)="addEntry()">
+    <mat-icon>add</mat-icon> Add Educational Status
+</button>
+<button mat-button color="accent" (click)="refresh()">
+    <mat-icon>refresh</mat-icon> Refresh
+</button>
+
+<app-loading-overlay [show]="loading">
+
+    <mat-nav-list class="edu-list">
+
+            <mat-list-item *ngIf="educationDetail.length === 0  && educationDetail.length === 0">
+                <mat-icon mat-list-icon>warning</mat-icon>
+                <h4 mat-line>No educational status yet</h4>
+            </mat-list-item>
+
+        <mat-list-item *ngFor="let item of educationDetail; let i of index">
+            <mat-icon mat-list-icon>school</mat-icon>
+
+            <h4 mat-line>{{item.institution}}</h4>
+            <p mat-line> {{item.institutionLocation}} </p>
+            <p mat-line>{{item.level}} | {{item.year | date:'y'}}</p>
+
+            <button mat-icon-button (click)="onItemSelect(i, item)"><mat-icon>edit</mat-icon></button>
+        </mat-list-item>
+
+    </mat-nav-list>
+
+</app-loading-overlay>

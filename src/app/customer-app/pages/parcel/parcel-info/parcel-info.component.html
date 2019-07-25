@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Details of Parcel</h1>
+
+<div mat-dialog-content>
+
+  <mat-chip-list>
+    <mat-chip [class.success]="details.status == 'delivered'">
+      {{ details.status | capitalize}}
+      <span *ngIf="details.status == 'delivered'">
+        : {{ details.dateModified | date:'d MMM y' }}
+      </span>
+    </mat-chip>
+    <mat-chip>
+      {{ details.senderId == personId ? 'Sender' : 'Recipient' }}
+    </mat-chip>
+    <mat-chip color="accent" *ngIf="details.status == 'transporting'">
+      ETA: {{ details.eta | secondstime }}
+    </mat-chip>
+  </mat-chip-list>
+  <br>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Description" readonly [value]="details.description">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Weight" readonly [value]="details.weight + ' kg'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Value" readonly [value]="details.value | currency:'GHS'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Charge" readonly [value]="details.charge | currency:'GHS'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Insurance" readonly [value]="details.insurance | currency:'GHS'">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Driver" readonly [value]="details.driver.fullName">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Route" readonly [value]="details.route.details">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Sender" readonly [value]="details.sender.fullName">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Recipient" readonly [value]="details.recipient.fullName">
+  </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions class="pull-right">
+  <button mat-button mat-dialog-close type="button">CLOSE</button>
+</div>

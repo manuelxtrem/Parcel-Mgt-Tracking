@@ -1,0 +1,36 @@
+.card {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+}
+
+.card-heading {
+  background-color: rgba(245, 245, 245, 0.7) !important;
+  padding: 0 25px !important;
+  height: 60px !important;
+}
+
+.cursor-pointer > * {
+  cursor: pointer !important;
+}
+
+mat-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+mat-expansion-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+  background: none !important;
+}
+
+mat-paginator {
+  background: rgba(255, 255, 255, 0) !important;
+}
+
+.mat-headline {
+  color: white;
+}

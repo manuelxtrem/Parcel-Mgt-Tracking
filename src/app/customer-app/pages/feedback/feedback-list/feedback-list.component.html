@@ -1,0 +1,44 @@
+<div class="mat-headline">Your Feedback</div>
+<mat-card class="card">
+  <div class="card-heading">
+    <button mat-icon-button>
+      <mat-icon matSuffix>search</mat-icon>
+    </button>
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filterInput placeholder="Filter feedbacks">
+    </mat-form-field>
+
+    <button class="main-actions pull-right" mat-icon-button (click)="getFeedbacks()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <div class="feedback-list mat-elevation-z3s">
+    <mat-list>
+      <app-list #listComponent [ResultAsync]="feedbacksAsync" (pageChange)="onPage($event)">
+        <app-list-item *appItem="let feedback; let i=index">
+          <mat-list-item>
+            <!-- <app-initials-avatar mat-list-avatar initials="FB"></app-initials-avatar> -->
+            <mat-icon mat-list-avatar svgIcon="star"></mat-icon>
+
+            <!-- <label mat-line>{{feedback.customer.surname}} {{feedback.customer.othername}}</label> -->
+            <label mat-line>
+              {{feedback.dateCreated | date:'d MMM y'}}
+            </label>
+            <label mat-line class="otherInfoSize">
+              <app-star [times]="feedback.rating"></app-star>
+            </label>
+            <label mat-line class="otherInfoSize">
+              {{feedback.comment}}
+            </label>
+
+          </mat-list-item>
+
+          <mat-divider></mat-divider>
+        </app-list-item>
+      </app-list>
+    </mat-list>
+  </div>
+</mat-card>
+
+<app-fab (clicked)="onAddFeedback()">add</app-fab>

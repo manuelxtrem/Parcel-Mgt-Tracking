@@ -1,0 +1,13 @@
+.star {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+.star-edit {
+  width: 27px;
+  height: 27px;
+  font-size: 27px;
+  cursor: pointer;
+  color: #646464;
+}

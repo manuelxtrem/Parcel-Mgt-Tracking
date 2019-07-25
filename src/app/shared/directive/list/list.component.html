@@ -1,0 +1,31 @@
+<div overlayparent="">
+
+  <app-loading-overlay [show]="isLoading">
+
+    <div *ngIf="!disableEmptyWarning && (!data || data.length===0)" [style.height]="'90px'">
+      <h4 style="padding:20px 0; text-align:center; " *ngIf="!isLoading">
+        <mat-icon>
+          warning
+        </mat-icon>
+
+        <br> {{EmptyWarningText}}
+        <br>
+      </h4>
+    </div>
+
+    <div *ngFor="let item of data;let i=index" [enableLoadedEvent]="true" [index]='i' [length]="data.length">
+      <ng-template [appTemplateWrapper]="itemTemplate" [item]="item" [index]="i"></ng-template>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="showPagination && (pagerTotal > pagerSize)" class="pull-right">
+          <mat-paginator (page)="onPageChange($event)" [length]="pagerTotal" [pageSize]="pagerSize" [pageSizeOptions]="pageSizeOptions">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+  </app-loading-overlay>
+
+</div>

@@ -1,0 +1,49 @@
+<h1 mat-dialog-title *ngIf="editMode">Edit Route</h1>
+<h1 mat-dialog-title *ngIf="!editMode">Add Route</h1>
+
+<form (ngSubmit)="onSave()">
+
+  <div mat-dialog-content>
+
+    <table class="full-width">
+      <tr>
+        <td class="width-80">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Source" required [(ngModel)]="details.source" name="source">
+          </mat-form-field>
+        </td>
+        <td class="width-20">
+          <button mat-icon-button type="button" (click)="onSourceSelect()">
+            <mat-icon>location_on</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+
+    <table class="full-width">
+      <tr>
+        <td class="width-80">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Destination" required [(ngModel)]="details.destination" name="destination">
+          </mat-form-field>
+        </td>
+        <td class="width-20">
+          <button mat-icon-button type="button" (click)="onDestinationSelect()">
+            <mat-icon>location_on</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div mat-dialog-actions class="pull-right">
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!details.source || !details.destination && (details.destinationLat != 0 && details.destinationLong != 0 && details.sourceLat != 0 && details.destinationLong != 0)">
+      <span *ngIf="!loading">SAVE</span>
+      <mat-spinner *ngIf="loading" color="warn"></mat-spinner>
+    </button>
+  </div>
+
+</form>

@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Choose a Location</h1>
+<small>Double-click on the map to select location</small>
+
+<div mat-dialog-content class="full-height">
+  <agm-map [latitude]="latitude || 0" [longitude]="longitude || 0" [streetViewControl]="false" [zoom]="zoom" [disableDoubleClickZoom]="true"
+    (mapDblClick)="addMarker($event)">
+    <agm-marker (dragEnd)="locationChange($event)" [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"></agm-marker>
+  </agm-map>
+</div>
+
+<div mat-dialog-actions class="pull-right">
+  <button mat-button type="button" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()">CHOOSE</button>
+</div>

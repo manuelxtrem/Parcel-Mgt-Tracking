@@ -1,0 +1,46 @@
+<div class="mat-headline">Damages</div>
+<mat-card class="card">
+  <div class="card-heading">
+    <button mat-icon-button>
+      <mat-icon matSuffix>search</mat-icon>
+    </button>
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filterInput placeholder="Filter damages">
+    </mat-form-field>
+
+    <button class="main-actions pull-right" mat-icon-button (click)="getDamages()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+
+  <div class="damage-list mat-elevation-z3s">
+    <mat-list>
+      <app-list #listComponent [ResultAsync]="damagesAsync" (pageChange)="onPage($event)">
+        <app-list-item *appItem="let damage; let i=index">
+          <mat-list-item class="cursor-pointer">
+            <app-img mat-list-avatar [src]="damage.customer.id" width="40" height="40" circle="true" memberPicture="true"></app-img>
+
+            <label mat-line class="cursor-pointer">{{damage.parcel.description}}</label>
+            <label mat-line class="otherInfoSize cursor-pointer">
+              <mat-icon class="small-icon">person</mat-icon>
+              {{damage.customer.fullName}}
+            </label>
+            <label mat-line class="otherInfoSize cursor-pointer">
+              <mat-icon class="small-icon">access_time</mat-icon>
+              {{damage.dateCreated | date:'d MMM y'}}
+            </label>
+            <label mat-line class="otherInfoSize cursor-pointer">
+              <mat-icon class="small-icon">info_outline</mat-icon>
+              {{damage.comment}}
+            </label>
+
+            <app-responsive-buttons [buttons]="actionButtons" [buttonsData]="damage.id"></app-responsive-buttons>
+
+          </mat-list-item>
+
+          <mat-divider></mat-divider>
+        </app-list-item>
+      </app-list>
+    </mat-list>
+  </div>
+</mat-card>

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="card-cover col-md-offset-4 col-sm-offset-3 col-md-4 col-sm-6">
+    <mat-card class="card-status center text-center">
+      <div>
+        GPS Status:
+        <span *ngIf="gpsService.isReady()" class="label label-success">ON</span>
+        <span *ngIf="!gpsService.isReady()" class="label label-danger">OFF</span>
+        <button mat-icon-button (click)="getLocation(true)">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+
+      <br>
+      <button mat-raised-button (click)="startTracking()" color="primary">START TRANSPORTING</button>
+      <!-- <button mat-raised-button (click)="startTracking()" color="primary" [disabled]="trackingStatus || !gpsService.isReady()">START TRANSPORTING</button> -->
+      <br>
+      <br>
+      <div>
+        Tracking Status:
+        <span *ngIf="trackingStatus" class="label label-success">TRACKING</span>
+        <span *ngIf="!trackingStatus" class="label label-danger">OFF</span>
+      </div>
+      <br>
+      <br>
+
+      <div *ngIf="gpsService.isReady()">
+        <br>
+        <br> ETA:
+        <span class="label label-primary">{{ ETA }}</span>
+      </div>
+      <br>
+      <br>
+
+
+      <div *ngIf="!gpsService.isReady()" class="alert alert-info">
+        <br>
+        <br>
+        <div class="alert alert-info">
+          Please make sure you are logged in using your mobile device and your Location Settings is set to ON.
+        </div>
+      </div>
+    </mat-card>
+
+    <br>
+
+    <mat-card *ngIf="gpsService.isReady()" class="card-map">
+      <div mat-card-title class="title">Your Location</div>
+      <div class="map">
+        <app-map [editMode]="true" [latitude]="latitude" [longitude]="longitude" [markers]="markers"></app-map>
+      </div>
+    </mat-card>
+  </div>
+</div>
